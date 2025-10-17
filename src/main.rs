@@ -1,17 +1,19 @@
+use std::env::remove_var;
 //utility to empty temp folder on windows
 //intended to be user-generic, so anyone could use
 use whoami::username;
-use std::fs::{read_dir, remove_file};
+use std::fs::{read_dir, remove_dir_all, remove_file, DirEntry};
 
-//main function to get full file path to start with
+//main function
 fn main() {
     let username = username();
     let path = format!("C:\\Users\\{}\\AppData\\Local\\Temp", username);
-    //read files into DirEntry vector
-    let files = read_dir(path).unwrap();
-    //iterate over files and delete them
-    for file in files {
-        remove_file(file.unwrap().path()).expect("Failed to remove file");
-    }
-    println!("Files Removed")
+    //read files into variable
+    let contents = read_dir(path).expect("Failed to read directory")
+        .into_iter()
+        .filter_map(Result::ok)
+        .filter(|entry| entry.path().is_file())
+        .collect::<Vec<DirEntry>>();
+
+    println!("only files: {:?}", contents);
 }
