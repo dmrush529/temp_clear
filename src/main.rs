@@ -7,9 +7,11 @@ use std::fs::{read_dir, remove_file};
 fn main() {
     let username = username();
     let path = format!("C:\\Users\\{}\\AppData\\Local\\Temp", username);
-
+    //read files into DirEntry vector
     let files = read_dir(path).unwrap();
+    //iterate over files and delete them
     for file in files {
-        println!("{}", file.unwrap().path().display());
+        remove_file(file.unwrap().path()).expect("Failed to remove file");
     }
+    println!("Files Removed")
 }
