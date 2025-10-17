@@ -8,11 +8,19 @@ fn main() {
     let username = username();
     let path = format!("C:\\Users\\{}\\AppData\\Local\\Temp", username);
     //read files into variable
-    let contents = read_dir(path).expect("Failed to read directory")
+    let files = read_dir(path.clone()).expect("Failed to read directory")
         .into_iter()
         .filter_map(Result::ok)
         .filter(|entry| entry.path().is_file())
         .collect::<Vec<DirEntry>>();
 
-    println!("only files: {:?}", contents);
+    //read the directories into the same
+    let directories = read_dir(path.clone()).expect("Failed to read directory")
+        .into_iter()
+        .filter_map(Result::ok)
+        .filter(|entry| entry.path().is_dir())
+        .collect::<Vec<DirEntry>>();
+
+    println!("only files: {:?} \n", files);
+    println!("directories: {:?} \n", directories);
 }
