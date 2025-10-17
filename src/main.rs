@@ -1,4 +1,3 @@
-use std::env::remove_var;
 //utility to empty temp folder on windows
 //intended to be user-generic, so anyone could use
 use whoami::username;
