@@ -1,0 +1,1 @@
+A desktop utility for a friend, will clear out all temp files in your windows user temp folder.
