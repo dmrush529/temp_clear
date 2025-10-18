@@ -38,8 +38,7 @@ fn main() {
     let mut term = Command::new("cmd").args(&[
         "/C",
         "start",
-        "cmd",
-        "/K",
+        "echo",
         deleted.as_str(),
     ])
         .spawn().expect("Failed to spawn terminal");
