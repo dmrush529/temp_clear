@@ -21,6 +21,16 @@ fn main() {
         .filter(|entry| entry.path().is_dir())
         .collect::<Vec<DirEntry>>();
 
-    println!("only files: {:?} \n", files);
-    println!("directories: {:?} \n", directories);
+    //remove the files
+    for file in &files {
+        remove_file(file.path()).expect("Failed to remove file");
+    }
+
+    //remove the directories
+    for directory in &directories {
+        remove_dir_all(directory.path()).expect("Failed to remove directory");
+    }
+
+    //acknowledge it's done
+    println!("{} files removed, {} directories removed", &files.len(), &directories.len());
 }
