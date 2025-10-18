@@ -2,6 +2,7 @@
 //intended to be user-generic, so anyone could use
 use whoami::username;
 use std::fs::{read_dir, remove_dir_all, remove_file, DirEntry};
+use std::process::Command;
 
 //main function
 fn main() {
@@ -31,6 +32,18 @@ fn main() {
         remove_dir_all(directory.path()).expect("Failed to remove directory");
     }
 
-    //acknowledge it's done
-    println!("{} files removed, {} directories removed", &files.len(), &directories.len());
+    //store the number of files and directories deleted in a variable
+    let deleted = format!("{} files removed, {} directories removed", &files.len(), &directories.len());
+    //acknowledge it's done (open a terminal for this)
+    let mut term = Command::new("cmd").args(&[
+        "/C",
+        "start",
+        "cmd",
+        "/K",
+        deleted.as_str(),
+    ])
+        .spawn().expect("Failed to spawn terminal");
+
+    term.wait().expect("Failed to wait terminal");
+
 }
