@@ -26,7 +26,7 @@ fn main() {
         let f = remove_file(file.path());
         match f {
             Ok(_) => {},
-            Err(error) => {println!("Failed to remove file: {}", error)}
+            Err(error) => {eprintln!("Failed to remove file: {}", error)}
         }
     }
 
@@ -35,7 +35,7 @@ fn main() {
         let dir = remove_dir_all(directory.path());
         match dir {
             Ok(_) => {}
-            Err(error) => {println!("Failed to delete directory: {}", error)}
+            Err(error) => {eprintln!("Failed to delete directory: {}", error)}
         }
     }
 
