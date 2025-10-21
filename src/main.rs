@@ -23,12 +23,20 @@ fn main() {
 
     //remove the files
     for file in &files {
-        remove_file(file.path()).expect("Failed to remove file");
+        let f = remove_file(file.path());
+        match f {
+            Ok(_) => {},
+            Err(error) => {println!("Failed to remove file: {}", error)}
+        }
     }
 
     //remove the directories
     for directory in &directories {
-        remove_dir_all(directory.path()).expect("Failed to remove directory");
+        let dir = remove_dir_all(directory.path());
+        match dir {
+            Ok(_) => {}
+            Err(error) => {println!("Failed to delete directory: {}", error)}
+        }
     }
 
     //store the number of files and directories deleted in a variable
